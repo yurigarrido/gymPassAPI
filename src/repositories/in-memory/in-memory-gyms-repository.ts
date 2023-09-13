@@ -1,16 +1,15 @@
-import {  Gym, Prisma } from "@prisma/client";
-import { GymsRepository } from "../gyms-repository";
-import { randomUUID } from "crypto";
+import { Gym, Prisma } from '@prisma/client'
+import { GymsRepository } from '../gyms-repository'
+import { randomUUID } from 'crypto'
 
 export class InMemoryGymsRepository implements GymsRepository {
-
-  public items: Gym[] = [];
+  public items: Gym[] = []
 
   async create(data: Prisma.GymCreateInput) {
     const gym = {
       id: data.id ? data.id : randomUUID(),
       title: data.title,
-      description:  data.description ?? null,
+      description: data.description ?? null,
       phone: data.phone ?? null,
       latitude: new Prisma.Decimal(data.latitude.toString()),
       longitude: new Prisma.Decimal(data.longitude.toString()),
@@ -23,12 +22,10 @@ export class InMemoryGymsRepository implements GymsRepository {
   }
 
   async findById(gymId: string) {
-    const gym = this.items.find(gym => gym.id === gymId)
+    const gym = this.items.find((gym) => gym.id === gymId)
 
-    if(!gym) return null;
+    if (!gym) return null
 
     return gym
   }
-
 }
-
