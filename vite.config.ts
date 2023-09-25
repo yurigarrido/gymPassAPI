@@ -1,6 +1,10 @@
 import { defineConfig } from 'vitest/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig( {
-  plugins: [tsconfigPaths()]
+export default defineConfig({
+  plugins: [tsconfigPaths()],
+  test: {
+    environmentMatchGlobs: [['src/http/Controllers/**', 'prisma']],
+    dir: 'src',
+  },
 })
